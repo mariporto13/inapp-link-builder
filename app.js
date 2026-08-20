@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const iosDp = document.getElementById('iosDp').value.trim() || 'greatapp://path';
     const androidRedirect = document.getElementById('androidRedirect').value.trim() || 'https://example.com';
     const iosRedirect = document.getElementById('iosRedirect').value.trim() || 'https://example.com';
-    const onelinkDomain = document.getElementById('onelinkDomain').value.trim() || 'https://example.onelink.me/0000';
+    const androidOnelink = document.getElementById('androidOnelink').value.trim() || 'https://example.onelink.me/0000';
+    const iosOnelink = document.getElementById('iosOnelink').value.trim() || 'https://example.onelink.me/0000';
 
     const resultsContainer = document.getElementById('resultsContainer');
     if (!resultsContainer) return;
