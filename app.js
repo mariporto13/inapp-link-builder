@@ -58,27 +58,56 @@ function encodePreservingMacros(str) {
 function populateWindowSelects() {
   const clSelect = document.getElementById('clWindow');
   const reSelect = document.getElementById('reWindow');
+  const vtSelect = document.getElementById('vtWindow');
+  const impReSelect = document.getElementById('impReWindow');
 
   if (!clSelect || !reSelect) return;
 
+  // Click Lookback: 1h to 23h, 1d to 30d
   clSelect.innerHTML = '';
   for (let i = 1; i <= 23; i++) {
     clSelect.add(new Option(`${i}h`, `${i}h`));
   }
   for (let i = 1; i <= 30; i++) {
     const opt = new Option(`${i}d`, `${i}d`);
-    if (i === 7) opt.selected = true;
+    if (i === 7) opt.selected = true; // Default to 7d
     clSelect.add(opt);
   }
 
+  // Click Reengagement: 1h to 36h, 1d to 90d, lifetime
   reSelect.innerHTML = '';
   for (let i = 1; i <= 36; i++) {
     reSelect.add(new Option(`${i}h`, `${i}h`));
   }
   for (let i = 1; i <= 90; i++) {
     const opt = new Option(`${i}d`, `${i}d`);
-    if (i === 7) opt.selected = true;
+    if (i === 30) opt.selected = true; // Default to 30d
     reSelect.add(opt);
+  }
+  reSelect.add(new Option('lifetime', 'lifetime'));
+
+  // Viewthrough Lookback: 1h to 24h
+  if (vtSelect) {
+    vtSelect.innerHTML = '';
+    for (let i = 1; i <= 24; i++) {
+      const opt = new Option(`${i}h`, `${i}h`);
+      if (i === 24) opt.selected = true; // Default to 24h
+      vtSelect.add(opt);
+    }
+  }
+
+  // Impression Reengagement: 1h to 36h, 1d to 90d, lifetime
+  if (impReSelect) {
+    impReSelect.innerHTML = '';
+    for (let i = 1; i <= 36; i++) {
+      impReSelect.add(new Option(`${i}h`, `${i}h`));
+    }
+    for (let i = 1; i <= 90; i++) {
+      const opt = new Option(`${i}d`, `${i}d`);
+      if (i === 30) opt.selected = true; // Default to 30d
+      impReSelect.add(opt);
+    }
+    impReSelect.add(new Option('lifetime', 'lifetime'));
   }
 }
 
@@ -89,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const deeplinkGroup = document.getElementById('deeplinkGroup');
   const redirectGroup = document.getElementById('redirectGroup');
   const onelinkGroup = document.getElementById('onelinkGroup');
+  const impressionGroup = document.getElementById('impressionGroup');
+  const impressionCheck = document.getElementById('impressionCheck');
   const generateBtn = document.getElementById('generateBtn');
 
   function updateVisibleFields() {
@@ -115,8 +146,19 @@ document.addEventListener('DOMContentLoaded', () => {
     onelinkGroup.style.display = ['oneLinkAF'].includes(type) ? 'block' : 'none';
   }
 
+  function toggleImpressionGroup() {
+    if (impressionGroup && impressionCheck) {
+      impressionGroup.style.display = impressionCheck.checked ? 'block' : 'none';
+    }
+  }
+
   linkTypeSelect.addEventListener('change', updateVisibleFields);
+  if (impressionCheck) {
+    impressionCheck.addEventListener('change', toggleImpressionGroup);
+  }
+
   updateVisibleFields();
+  toggleImpressionGroup();
 
   function createResultBlock(label, value) {
     const block = document.createElement('div');
@@ -156,6 +198,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const reWindowInput = document.getElementById('reWindow');
     const androidIdInput = document.getElementById('androidId');
     const iosIdInput = document.getElementById('iosId');
+    const vtWindowInput = document.getElementById('vtWindow');
+    const impReWindowInput = document.getElementById('impReWindow');
 
     const androidDpRaw = document.getElementById('androidDp').value.trim();
     const iosDpRaw = document.getElementById('iosDp').value.trim();
@@ -168,6 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const androidId = androidIdInput ? androidIdInput.value.trim() : '';
     const iosId = iosIdInput ? iosIdInput.value.trim() : '';
 
+    const generateImpression = impressionCheck?.checked;
+    const vtWindow = vtWindowInput ? vtWindowInput.value.trim() : '24h';
+    const impReWindow = impReWindowInput ? impReWindowInput.value.trim() : '7d';
+
     let customParams = document.getElementById('customParams').value.trim();
     if (customParams && !customParams.startsWith('&')) {
       customParams = '&' + customParams;
@@ -178,6 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!reWindow) missingFields.push('Reengagement window');
     if (!androidId) missingFields.push('Android App ID');
     if (!iosId) missingFields.push('iOS App ID');
+
+    if (generateImpression) {
+      if (!vtWindow) missingFields.push('Viewthrough lookback window');
+      if (!impReWindow) missingFields.push('Impression reengagement window');
+    }
 
     if (['universalAF', 'universalADJ', 'universalSNG'].includes(type)) {
       if (!androidRedirectRaw) missingFields.push('Android Link');
@@ -220,12 +273,12 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'universalAF':
         resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
-          'Server2server external trackers for Android:',
+          'Server2server external trackers URL for Android ("CLICK", "AAID"):',
           `https://app.appsflyer.com/v2.0/s2s/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}${customParams}&rtbhc={RTBHC}`
         ));
         resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
-          'Server2server external trackers for iOS:',
+          'Server2server external trackers URL for iOS ("CLICK", "IDFA"):',
           `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}${customParams}&rtbhc={RTBHC}`
         ));
         break;
@@ -271,6 +324,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       default:
         resultsContainer.innerHTML = '<p class="placeholder-text">Invalid link option selected.</p>';
+    }
+
+    if (generateImpression) {
+      resultsContainer.appendChild(createResultBlock(
+        'Server2server external trackers Impression URL for Android ("IMPRESSION", "AAID"):', 
+        `https://impression.appsflyer.com/v2.0/s2s/${androidId}?pid=rtbhouse_int&c=${androidC}&af_viewthrough_lookback=${vtWindow}&af_reengagement_window=${impReWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&impression_id={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}`
+      ));
+      resultsContainer.appendChild(createResultBlock(
+        'Server2server external trackers Impression URL for iOS ("IMPRESSION", "IDFA"):', 
+        `https://impression.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_viewthrough_lookback=${vtWindow}&af_reengagement_window=${impReWindow}&is_retargeting=true&idfa={IOS_IDFA}&impression_id={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}`
+      ));
     }
   }
 

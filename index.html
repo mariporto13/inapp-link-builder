@@ -130,6 +130,32 @@
             <input type="text" id="customParams" placeholder="&param1=value1&param2=value2">
           </div>
 
+          <!-- Impression Tracking Option -->
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="impressionCheck">
+              Generate Impression tracking URLs (if this is not selected, only Click URLs will be generated).
+            </label>
+          </div>
+
+          <!-- Impression Attribution Window Inputs -->
+          <div class="field-group" id="impressionGroup">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vtWindow">Viewthrough lookback window (install -> app open)</label>
+                <select id="vtWindow">
+                  <!-- Generated via JS: 1h to 24h -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="impReWindow">Imp reengagement window (app open -> conversion)</label>
+                <select id="impReWindow">
+                  <!-- Generated via JS: 1h to 36h, 1d to 90d -->
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div class="button-group">
             <button type="button" id="generateBtn" class="btn btn-primary">Generate Links</button>
           </div>
