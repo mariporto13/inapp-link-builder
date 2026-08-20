@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InApp Link Builder</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="app-container">
     <header class="app-header">
-      <h1>InApp Link Builder v0.3</h1>
+      <h1>InApp Link Builder v0.4</h1>
       <p>Generate AppsFlyer tracking URLs based on client specifications.</p>
     </header>
 
@@ -19,12 +21,16 @@
         <h2>Configuration Parameters</h2>
         <form id="linkForm">
           <div class="form-group">
-            <label for="linkType">Link Type</label>
-            <select id="linkType">
-              <option value="Option 1">AppsFlyer Universal Link</option>
-              <option value="Option 2">AppsFlyer Deeplink</option>
-              <option value="Option 3">AppsFlyer MMP Tracker</option>
-              <option value="Option 4">AppsFlyer OneLink</option>
+            <label for="mmpSelect">Mobile Measurement Partner (MMP):</label>
+            <select id="mmpSelect">
+              <option value="appsflyer">AppsFlyer</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="linkTypeSelect">Link Type:</label>
+            <select id="linkTypeSelect">
+              <!-- Populated dynamically via JS based on selected MMP -->
             </select>
           </div>
 
@@ -98,16 +104,14 @@
         </form>
       </section>
 
-      <!-- Output Section -->
-      <section class="card output-section">
-        <h2>Generated Mainframe Output</h2>
-        <div class="output-wrapper">
-          <pre id="outputResult">Select a link type, enter parameters, and click "Generate Links".</pre>
-        </div>
-      </section>
+      <!-- Results Section Update -->
+      <div id="resultsContainer" class="results-container">
+        <!-- Dynamic output blocks with copy buttons will be injected here -->
+      </div>
     </main>
   </div>
 
   <script src="app.js"></script>
 </body>
+
 </html>

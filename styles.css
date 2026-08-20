@@ -153,3 +153,28 @@ pre {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+.result-block {
+  margin-bottom: 1rem;
+}
+
+.result-block label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.copy-input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.copy-input-group input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.copy-btn {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}

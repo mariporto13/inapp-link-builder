@@ -1,3 +1,33 @@
+// Data mapping available Link Types per MMP
+const mmpOptions = {
+  appsflyer: [
+    { value: 'oneLink', text: 'OneLink Custom URL' },
+    { value: 'singlePlatform', text: 'Single Platform Link' }
+    // Add future link types here
+  ]
+};
+
+const mmpSelect = document.getElementById('mmpSelect');
+const linkTypeSelect = document.getElementById('linkTypeSelect');
+
+// Dynamically populate Link Types based on MMP selection
+function updateLinkTypes() {
+  const selectedMMP = mmpSelect.value;
+  const options = mmpOptions[selectedMMP] || [];
+
+  linkTypeSelect.innerHTML = '';
+  options.forEach(opt => {
+    const optionEl = document.createElement('option');
+    optionEl.value = opt.value;
+    optionEl.textContent = opt.text;
+    linkTypeSelect.appendChild(optionEl);
+  });
+}
+
+mmpSelect.addEventListener('change', updateLinkTypes);
+// Initial population on load
+updateLinkTypes();
+
 document.addEventListener('DOMContentLoaded', () => {
   const linkTypeSelect = document.getElementById('linkType');
   const deeplinkGroup = document.getElementById('deeplinkGroup');
@@ -98,4 +128,39 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  // Helper to render individual copyable blocks in the Results section
+  function renderResultBlock(label, value) {
+    const block = document.createElement('div');
+    block.className = 'result-block';
+
+    block.innerHTML = `
+    <label>${label}</label>
+    <div class="copy-input-group">
+      <input type="text" readonly value="${value}" />
+      <button class="copy-btn">Copy</button>
+    </div>
+  `;
+
+    block.querySelector('.copy-btn').addEventListener('click', (e) => {
+      navigator.clipboard.writeText(value);
+      e.target.textContent = 'Copied!';
+      setTimeout(() => { e.target.textContent = 'Copy'; }, 2000);
+    });
+
+    return block;
+  }
+
+  // Example usage in your generate results handler:
+  function displayResults(androidRedirect, iosRedirect) {
+    const container = document.getElementById('resultsContainer');
+    container.innerHTML = ''; // Clear previous output
+
+    if (androidRedirect) {
+      container.appendChild(renderResultBlock('Landing macro for Android:', androidRedirect));
+    }
+    if (iosRedirect) {
+      container.appendChild(renderResultBlock('Landing macro for iOS:', iosRedirect));
+    }
+  }
 });
