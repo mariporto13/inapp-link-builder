@@ -45,6 +45,16 @@ textareas.forEach(textarea => {
   });
 });
 
+function encodePreservingMacros(str) {
+  if (!str) return '';
+  return str.split(/(\{.*?\})/g).map(part => {
+    if (part.startsWith('{') && part.endsWith('}')) {
+      return part;
+    }
+    return encodeURIComponent(part);
+  }).join('');
+}
+
 function populateWindowSelects() {
   const clSelect = document.getElementById('clWindow');
   const reSelect = document.getElementById('reWindow');
@@ -108,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
   linkTypeSelect.addEventListener('change', updateVisibleFields);
   updateVisibleFields();
 
-
-
   function createResultBlock(label, value) {
     const block = document.createElement('div');
     block.className = 'result-block';
@@ -120,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <button type="button" class="copy-btn">Copy</button>
     </div>`;
 
-    // Auto-fit height to text content
     const textarea = block.querySelector('textarea');
     setTimeout(() => {
       textarea.style.height = 'auto';
@@ -147,12 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
     const iosC = document.getElementById('iosC').value.trim() || 'rtbhouse-retargeting';
-    const androidDp = document.getElementById('androidDp').value.trim() || 'greatapp://path';
-    const iosDp = document.getElementById('iosDp').value.trim() || 'greatapp://path';
-    const androidRedirect = document.getElementById('androidRedirect').value.trim() || 'https://example.com';
-    const iosRedirect = document.getElementById('iosRedirect').value.trim() || 'https://example.com';
+    
+    const androidDpRaw = document.getElementById('androidDp').value.trim() || 'greatapp://path';
+    const iosDpRaw = document.getElementById('iosDp').value.trim() || 'greatapp://path';
+    const androidRedirectRaw = document.getElementById('androidRedirect').value.trim() || 'https://example.com';
+    const iosRedirectRaw = document.getElementById('iosRedirect').value.trim() || 'https://example.com';
     const androidOnelink = document.getElementById('androidOnelink').value.trim() || 'https://example.onelink.me/0000';
     const iosOnelink = document.getElementById('iosOnelink').value.trim() || 'https://example.onelink.me/0000';
+
+    const androidDp = encodePreservingMacros(androidDpRaw);
+    const iosDp = encodePreservingMacros(iosDpRaw);
+    const androidRedirect = encodePreservingMacros(androidRedirectRaw);
+    const iosRedirect = encodePreservingMacros(iosRedirectRaw);
 
     const resultsContainer = document.getElementById('resultsContainer');
     if (!resultsContainer) return;
@@ -160,12 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (type) {
       case 'universalAF':
-        resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirect));
+        resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
           'Server2server external trackers for Android:',
           `https://app.appsflyer.com/v2.0/s2s/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`
         ));
-        resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirect));
+        resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
           'Server2server external trackers for iOS:',
           `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`
