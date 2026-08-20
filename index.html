@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>InApp Mainframe Link Builder</title>
+  <title>InApp Link Builder</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app-container">
     <header class="app-header">
-      <h1>InApp Link Builder v0.1</h1>
+      <h1>InApp Link Builder v0.2</h1>
       <p>Generate AppsFlyer tracking URLs based on client specifications.</p>
     </header>
 
@@ -30,19 +30,19 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label for="reWindow">What is the reengagement window? (app open -> conversion)</label>
-              <input type="text" id="reWindow">
+              <label for="reWindow">Reengagement window (app open -> conversion)</label>
+              <input type="text" id="reWindow" placeholder="e.g. 7d">
             </div>
             <div class="form-group">
-              <label for="clWindow">What is the click lookback window? (install -> app open)</label>
-              <input type="text" id="clWindow">
+              <label for="clWindow">Click lookback window? (install -> app open)</label>
+              <input type="text" id="clWindow" placeholder="e.g. 7d">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="androidId">Android App ID</label>
-              <input type="text" id="androidId" placeholder="e.g. com.mcdo.mcdonalds">
+              <input type="text" id="androidId" placeholder="e.g. com.globo.globotv">
             </div>
             <div class="form-group">
               <label for="iosId">iOS App ID</label>
