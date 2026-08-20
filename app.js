@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Core link generation function adhering to the Base sheet rules
   function buildLinks() {
     const type = linkTypeSelect.value;
-    const reWindow = document.getElementById('reWindow').value.trim();
     const clWindow = document.getElementById('clWindow').value.trim();
+    const reWindow = document.getElementById('reWindow').value.trim();
     const androidId = document.getElementById('androidId').value.trim() || 'com.mcdo.mcdonalds';
     const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
@@ -37,11 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (type) {
       case 'Option 1': // AppsFlyer Universal link
-        output += `Landing macro for Android:\n ${androidRedirect}\n\n`
-        output += `Server2server external trackers for Android:\n`;
+        output += `Landing macro for Android:\n `
+        output += `${androidRedirect}\n\n`
+        output += `Server2server external trackers for Android:\n `;
         output += `https://app.appsflyer.com/v2.0/s2s/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}\n\n`;
-        output += `Landing macro for iOS:\n ${iosRedirect}\n\n`
-        output += `Server2server external trackers for iOS:\n`;
+        output += `Landing macro for iOS:\n `
+        output += `${iosRedirect}\n\n`
+        output += `Server2server external trackers for iOS:\n `;
         output += `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`;
         break;
 
