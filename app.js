@@ -45,7 +45,36 @@ textareas.forEach(textarea => {
   });
 });
 
+function populateWindowSelects() {
+  const clSelect = document.getElementById('clWindow');
+  const reSelect = document.getElementById('reWindow');
+
+  if (!clSelect || !reSelect) return;
+
+  clSelect.innerHTML = '';
+  for (let i = 1; i <= 23; i++) {
+    clSelect.add(new Option(`${i}h`, `${i}h`));
+  }
+  for (let i = 1; i <= 30; i++) {
+    const opt = new Option(`${i}d`, `${i}d`);
+    if (i === 7) opt.selected = true;
+    clSelect.add(opt);
+  }
+
+  reSelect.innerHTML = '';
+  for (let i = 1; i <= 36; i++) {
+    reSelect.add(new Option(`${i}h`, `${i}h`));
+  }
+  for (let i = 1; i <= 90; i++) {
+    const opt = new Option(`${i}d`, `${i}d`);
+    if (i === 7) opt.selected = true;
+    reSelect.add(opt);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  populateWindowSelects();
+
   const linkTypeSelect = document.getElementById('linkTypeSelect');
   const deeplinkGroup = document.getElementById('deeplinkGroup');
   const redirectGroup = document.getElementById('redirectGroup');
@@ -79,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
   linkTypeSelect.addEventListener('change', updateVisibleFields);
   updateVisibleFields();
 
+
+
   function createResultBlock(label, value) {
     const block = document.createElement('div');
     block.className = 'result-block';
@@ -110,8 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildLinks() {
     const type = linkTypeSelect.value;
-    const clWindow = document.getElementById('clWindow').value.trim() || '7d';
-    const reWindow = document.getElementById('reWindow').value.trim() || '7d';
+    const clWindow = document.getElementById('clWindow').value;
+    const reWindow = document.getElementById('reWindow').value;
     const androidId = document.getElementById('androidId').value.trim() || 'com.globo.globotv';
     const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
