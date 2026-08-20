@@ -1,9 +1,10 @@
 // Data mapping available Link Types per MMP
 const mmpOptions = {
   appsflyer: [
-    { value: 'oneLink', text: 'OneLink Custom URL' },
-    { value: 'singlePlatform', text: 'Single Platform Link' }
-    // Add future link types here
+    { value: 'universal', text: 'Universal link' },
+    { value: 'deeplink', text: 'Deeplink' },
+    { value: 'mmp', text: 'MMP tracker' },
+    { value: 'oneLink', text: 'OneLink Custom URL' }
   ]
 };
 
