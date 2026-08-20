@@ -75,22 +75,6 @@ body {
   gap: 12px;
 }
 
-.form-row-stacked {
-  display: flex !important;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.form-row-stacked input {
-  font-family: monospace;
-  font-size: 13px;
-  text-overflow: ellipsis;
-}
-
-.form-row-stacked input:focus {
-  text-overflow: clip;
-}
-
 textarea {
   width: 100%;
   padding: 10px 12px;

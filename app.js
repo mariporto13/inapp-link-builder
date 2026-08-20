@@ -1,14 +1,14 @@
 const mmpOptions = {
   appsflyer: [
-    { value: 'universal', text: 'Universal link' },
-    { value: 'deeplink', text: 'Deeplink' },
-    { value: 'mmp', text: 'MMP tracker' },
-    { value: 'oneLink', text: 'OneLink' }
+    { value: 'universalAF', text: 'Universal link' },
+    { value: 'deeplinkAF', text: 'Deeplink' },
+    { value: 'mmpAF', text: 'MMP tracker' },
+    { value: 'oneLinkAF', text: 'OneLink' }
   ],
   adjust: [
-    { value: 'universal', text: 'Universal link' },
-    { value: 'deeplink', text: 'Deeplink' },
-    { value: 'mmp', text: 'MMP tracker' }
+    { value: 'universalAD', text: 'Universal link' },
+    { value: 'deeplinkAD', text: 'Deeplink' },
+    { value: 'mmpAD', text: 'MMP tracker' }
   ]
 };
 
@@ -31,15 +31,6 @@ function updateLinkTypes() {
 mmpSelect.addEventListener('change', updateLinkTypes);
 updateLinkTypes();
 
-const expandableInputs = document.querySelectorAll('#deeplinkGroup textarea, #redirectGroup textarea');
-
-expandableInputs.forEach(textarea => {
-  textarea.addEventListener('input', () => {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-  });
-});
-
 const textareas = document.querySelectorAll('#deeplinkGroup textarea, #redirectGroup textarea');
 
 textareas.forEach(textarea => {
@@ -59,9 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateVisibleFields() {
     const type = linkTypeSelect.value;
 
-    deeplinkGroup.style.display = ['deeplink', 'mmp', 'Option 2', 'Option 3'].includes(type) ? 'grid' : 'none';
-    redirectGroup.style.display = ['universal', 'mmp', 'Option 1', 'Option 3'].includes(type) ? 'grid' : 'none';
-    onelinkGroup.style.display = ['oneLink', 'Option 4'].includes(type) ? 'block' : 'none';
+    deeplinkGroup.style.display = ['deeplink', 'mmp'].includes(type) ? 'grid' : 'none';
+    redirectGroup.style.display = ['universal', 'mmp'].includes(type) ? 'grid' : 'none';
+    onelinkGroup.style.display = ['oneLink'].includes(type) ? 'block' : 'none';
   }
 
   linkTypeSelect.addEventListener('change', updateVisibleFields);
@@ -111,8 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultsContainer.innerHTML = ''; // Clear previous results
 
     switch (type) {
-      case 'universal':
-      case 'Option 1': // AppsFlyer Universal link
+      case 'universalAF':
         resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirect));
         resultsContainer.appendChild(createResultBlock(
           'Server2server external trackers for Android:',
@@ -125,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ));
         break;
 
-      case 'deeplink':
-      case 'Option 2': // AppsFlyer Deeplink
+      case 'deeplinkAF':
         resultsContainer.appendChild(createResultBlock(
           'Android:',
           `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_force_deeplink=true`
@@ -137,8 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ));
         break;
 
-      case 'mmp':
-      case 'Option 3': // AppsFlyer MMP tracker
+      case 'mmpAF':
         resultsContainer.appendChild(createResultBlock(
           'Android:',
           `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_r=${androidRedirect}&af_force_deeplink=true`
@@ -149,44 +137,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ));
         break;
 
-      case 'oneLink':
-      case 'Option 4': // AppsFlyer OneLink
+      case 'oneLinkAF':
         resultsContainer.appendChild(createResultBlock(
           'OneLink:',
           `${onelinkDomain}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={RTBHC}`
-        ));
-        break;
-
-      case 'Option 5': // Adjust Universal link
-        resultsContainer.appendChild(createResultBlock(
-          'Server2server external trackers for Android:',
-          `https://s2s.adjust.com/${androidId}?campaign=rtbhouse_int&rtbhouse_click_id=${androidC}&gps_adid=TRUE&os_name=android&s2s={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}`
-        ));
-        resultsContainer.appendChild(createResultBlock(
-          'Server2server external trackers for iOS:',
-          `https://s2s.adjust.com/${iosId}?campaign=rtbhouse_int&rtbhouse_click_id=${iosC}&idfa=TRUE&os_name=ios&s2s={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}`
-        ));
-        break;
-
-      case 'Option 6': // Adjust Deeplink
-        resultsContainer.appendChild(createResultBlock(
-          'Android:',
-          `https://app.adjust.com/${androidId}?campaign=rtbhouse_int&rtbhouse_click_id=${androidC}&gps_adid=TRUE&deep_link=${androidDp}`
-        ));
-        resultsContainer.appendChild(createResultBlock(
-          'iOS:',
-          `https://app.adjust.com/${iosId}?campaign=rtbhouse_int&rtbhouse_click_id=${iosC}&idfa=TRUE&deep_link=${iosDp}`
-        ));
-        break;
-
-      case 'Option 7': // Adjust MMP tracker
-        resultsContainer.appendChild(createResultBlock(
-          'Android:',
-          `https://app.adjust.com/${androidId}?campaign=rtbhouse_int&rtbhouse_click_id=${androidC}&gps_adid=TRUE&deep_link=${androidDp}&redirect=${androidRedirect}`
-        ));
-        resultsContainer.appendChild(createResultBlock(
-          'iOS:',
-          `https://app.adjust.com/${iosId}?campaign=rtbhouse_int&rtbhouse_click_id=${iosC}&idfa=TRUE&deep_link=${iosDp}&redirect=${iosRedirect}`
         ));
         break;
 
