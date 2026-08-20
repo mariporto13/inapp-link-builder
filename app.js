@@ -180,8 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (['deeplinkAF', 'deeplinkADJ', 'deeplinkSNG'].includes(type)) {
-      if (!androidDpRaw) missingFields.push('Android Deep Link');
-      if (!iosDpRaw) missingFields.push('iOS Deep Link');
+      if (!androidDpRaw) missingFields.push('Android Deeplink');
+      if (!iosDpRaw) missingFields.push('iOS Deeplink');
     }
 
     if (['oneLinkAF'].includes(type)) {
