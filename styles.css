@@ -102,6 +102,15 @@ label {
   color: #334155;
 }
 
+.note-label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  display: block;
+}
+
 input,
 select {
   width: 100%;

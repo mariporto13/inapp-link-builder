@@ -72,8 +72,8 @@
           </div>
 
           <!-- Deep Link Inputs -->
-          <div>
-            <div class="form-row field-group" id="deeplinkGroup">
+          <div class="field-group" id="deeplinkGroup">
+            <div class="form-row">
               <div class="form-group">
                 <label for="androidDp">Android Deep Link (include macros and UTMs)</label>
                 <textarea id="androidDp" rows="3"
@@ -84,12 +84,12 @@
                 <textarea id="iosDp" rows="3" placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}"></textarea>
               </div>
             </div>
-            <label>Note: UTMs are required if the MMP is not used for Client stats</label>
+            <label class="note-label">Note: UTMs are required if the MMP is not used for Client stats</label>
           </div>
 
           <!-- Redirect Inputs -->
-          <div>
-            <div class="form-row field-group" id="redirectGroup">
+          <div class="field-group" id="redirectGroup">
+            <div class="form-row">
               <div class="form-group">
                 <label for="androidRedirect">Android Link (include macros and UTMs)</label>
                 <textarea id="androidRedirect" rows="3"
@@ -101,26 +101,24 @@
                   placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios"></textarea>
               </div>
             </div>
-            <label>Note: UTMs are required if the MMP is not used for Client stats</label>
+            <label class="note-label">Note: UTMs are required if the MMP is not used for Client stats</label>
           </div>
 
           <!-- OneLink Input -->
-
-          <div>
-            <div class="form-group field-group" id="onelinkGroup">
+          <div class="field-group" id="onelinkGroup">
+            <div class="form-row">
               <div class="form-group">
                 <label for="androidOnelink">Android OneLink (include macros and UTMs*)</label>
-                <textarea id="onelinkDomain" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
+                <textarea id="androidOnelink" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
               </div>
               <div class="form-group">
                 <label for="iosOnelink">iOS OneLink (include macros and UTMs*)</label>
-                <textarea id="onelinkDomain" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
+                <textarea id="iosOnelink" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
               </div>
             </div>
-            <label>Note 1: make sure the link is not "https://greatapp.onelink.me/328f/12345", the "12345" part
-              might
-              cause issues with attribution</label>
-            <label>Note 2: UTMs are required if the MMP is not used for Client stats</label>
+            <label class="note-label">Note 1: make sure the link is not "https://greatapp.onelink.me/328f/12345", the
+              "12345" part might cause issues with attribution</label>
+            <label class="note-label">Note 2: UTMs are required if the MMP is not used for Client stats</label>
           </div>
 
           <div class="button-group">

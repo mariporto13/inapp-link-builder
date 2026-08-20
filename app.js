@@ -56,21 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const type = linkTypeSelect.value;
 
     deeplinkGroup.style.display = [
-      'deeplinkAF', 
-      'mmpAF', 
-      'deeplinkADJ', 
+      'deeplinkAF',
+      'mmpAF',
+      'deeplinkADJ',
       'mmpADJ',
       'deeplinkSNG',
       'mmpSNG',
-    ].includes(type) ? 'grid' : 'none';
+    ].includes(type) ? 'block' : 'none';
+
     redirectGroup.style.display = [
-      'universalAF', 
-      'mmpAF', 
-      'universalADJ', 
+      'universalAF',
+      'mmpAF',
+      'universalADJ',
       'mmpADJ',
       'universalSNG',
       'mmpSNG',
-    ].includes(type) ? 'grid' : 'none';
+    ].includes(type) ? 'block' : 'none';
+
     onelinkGroup.style.display = ['oneLinkAF'].includes(type) ? 'block' : 'none';
   }
 
@@ -138,11 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'deeplinkAF':
         resultsContainer.appendChild(createResultBlock(
           'Android:',
-          `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_force_deeplink=true`
+          `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${androidDp}&af_force_deeplink=true&rtbhc={RTBHC}`
         ));
         resultsContainer.appendChild(createResultBlock(
           'iOS:',
-          `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${iosDp}&af_force_deeplink=true`
+          `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${iosDp}&af_force_deeplink=true&rtbhc={RTBHC}`
         ));
         break;
 
