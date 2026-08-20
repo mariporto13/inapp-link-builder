@@ -150,11 +150,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsContainer = document.getElementById('resultsContainer');
     if (!resultsContainer) return;
 
-    // Validate Required Fields
+    const type = linkTypeSelect.value;
+
     const clWindowInput = document.getElementById('clWindow');
     const reWindowInput = document.getElementById('reWindow');
     const androidIdInput = document.getElementById('androidId');
     const iosIdInput = document.getElementById('iosId');
+
+    const androidDpRaw = document.getElementById('androidDp').value.trim();
+    const iosDpRaw = document.getElementById('iosDp').value.trim();
+    const androidRedirectRaw = document.getElementById('androidRedirect').value.trim();
+    const iosRedirectRaw = document.getElementById('iosRedirect').value.trim();
+    const androidOnelinkRaw = document.getElementById('androidOnelink').value.trim();
 
     const clWindow = clWindowInput ? clWindowInput.value.trim() : '';
     const reWindow = reWindowInput ? reWindowInput.value.trim() : '';
@@ -167,10 +174,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!androidId) missingFields.push('Android App ID');
     if (!iosId) missingFields.push('iOS App ID');
 
+    if (['universalAF', 'universalADJ', 'universalSNG'].includes(type)) {
+      if (!androidRedirectRaw) missingFields.push('Android Link');
+      if (!iosRedirectRaw) missingFields.push('iOS Link');
+    }
+
+    if (['deeplinkAF', 'deeplinkADJ', 'deeplinkSNG'].includes(type)) {
+      if (!androidDpRaw) missingFields.push('Android Deep Link');
+      if (!iosDpRaw) missingFields.push('iOS Deep Link');
+    }
+
+    if (['oneLinkAF'].includes(type)) {
+      if (!androidOnelinkRaw) missingFields.push('Android OneLink');
+    }
+
     if (missingFields.length > 0) {
       resultsContainer.innerHTML = `
         <div style="color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; padding: 1rem; border-radius: 6px;">
-          <strong>Please fill in all required fields before generating links:</strong>
+          <strong>Please fill in all required fields for this link type:</strong>
           <ul style="margin: 0.5rem 0 0 1.25rem; padding: 0;">
             ${missingFields.map(field => `<li>${field}</li>`).join('')}
           </ul>
@@ -181,16 +202,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resultsContainer.innerHTML = '';
 
-    const type = linkTypeSelect.value;
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
     const iosC = document.getElementById('iosC').value.trim() || 'rtbhouse-retargeting';
-    
-    const androidDpRaw = document.getElementById('androidDp').value.trim();
-    const iosDpRaw = document.getElementById('iosDp').value.trim();
-    const androidRedirectRaw = document.getElementById('androidRedirect').value.trim();
-    const iosRedirectRaw = document.getElementById('iosRedirect').value.trim();
-    const androidOnelink = document.getElementById('androidOnelink').value.trim() || 'https://example.onelink.me/0000';
-    const iosOnelink = document.getElementById('iosOnelink').value.trim() || 'https://example.onelink.me/0000';
+    const iosOnelinkRaw = document.getElementById('iosOnelink').value.trim() || androidOnelinkRaw;
 
     const androidDp = encodePreservingMacros(androidDpRaw);
     const iosDp = encodePreservingMacros(iosDpRaw);
@@ -199,12 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (type) {
       case 'universalAF':
-        resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirectRaw || 'https://example.com'));
+        resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
           'Server2server external trackers for Android:',
           `https://app.appsflyer.com/v2.0/s2s/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`
         ));
-        resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirectRaw || 'https://example.com'));
+        resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirectRaw));
         resultsContainer.appendChild(createResultBlock(
           'Server2server external trackers for iOS:',
           `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`
@@ -214,11 +228,11 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'deeplinkAF':
         resultsContainer.appendChild(createResultBlock(
           'Android:',
-          `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${androidDp || encodePreservingMacros('greatapp://path')}&rtbhc={RTBHC}`
+          `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${androidDp}&rtbhc={RTBHC}`
         ));
         resultsContainer.appendChild(createResultBlock(
           'iOS:',
-          `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${iosDp || encodePreservingMacros('greatapp://path')}&rtbhc={RTBHC}`
+          `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_dp=${iosDp}&rtbhc={RTBHC}`
         ));
         break;
 
@@ -242,11 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'oneLinkAF':
         resultsContainer.appendChild(createResultBlock(
           'Android:',
-          `${androidOnelink}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&rtbhc={RTBHC}`
+          `${androidOnelinkRaw}?pid=rtbhouse_int&c=${androidC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&rtbhc={RTBHC}`
         ));
         resultsContainer.appendChild(createResultBlock(
           'iOS:',
-          `${iosOnelink}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&rtbhc={RTBHC}`
+          `${iosOnelinkRaw}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&rtbhc={RTBHC}`
         ));
         break;
 
