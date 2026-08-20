@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InApp Mainframe Link Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>InApp Mainframe Link Builder</h1>
+      <p>Generate AppsFlyer & Adjust deep links and tracking URLs based on client specifications.</p>
+    </header>
+
+    <main class="grid-layout">
+      <!-- Input Form -->
+      <section class="card form-section">
+        <h2>Configuration Parameters</h2>
+        <form id="linkForm">
+          <div class="form-group">
+            <label for="linkType">Link Type</label>
+            <select id="linkType">
+              <option value="Option 1">AppsFlyer Universal Link</option>
+              <option value="Option 2">AppsFlyer Deeplink</option>
+              <option value="Option 3">AppsFlyer MMP Tracker</option>
+              <option value="Option 4">AppsFlyer OneLink</option>
+              <option value="Option 5">Adjust Universal Link</option>
+              <option value="Option 6">Adjust Deeplink</option>
+              <option value="Option 7">Adjust MMP Tracker</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="androidId">Android App ID / Tracker ID</label>
+              <input type="text" id="androidId" placeholder="e.g. com.mcdo.mcdonalds">
+            </div>
+            <div class="form-group">
+              <label for="iosId">iOS App ID / Tracker ID</label>
+              <input type="text" id="iosId" placeholder="e.g. id536321738">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="androidC">Android Campaign / C Parameter</label>
+              <input type="text" id="androidC" placeholder="Default: rtbhouse-retargeting">
+            </div>
+            <div class="form-group">
+              <label for="iosC">iOS Campaign / C Parameter</label>
+              <input type="text" id="iosC" placeholder="Default: rtbhouse-retargeting">
+            </div>
+          </div>
+
+          <!-- Dynamic Deep Link Inputs -->
+          <div class="form-row field-group" id="deeplinkGroup">
+            <div class="form-group">
+              <label for="androidDp">Android Deep Link / Path</label>
+              <input type="text" id="androidDp" placeholder="e.g. {RTBHC} or greatapp://path">
+            </div>
+            <div class="form-group">
+              <label for="iosDp">iOS Deep Link / Path</label>
+              <input type="text" id="iosDp" placeholder="e.g. {RTBHC} or greatapp://path">
+            </div>
+          </div>
+
+          <!-- Dynamic Redirect Inputs -->
+          <div class="form-row field-group" id="redirectGroup">
+            <div class="form-group">
+              <label for="androidRedirect">Android Fallback / Redirect URL</label>
+              <input type="text" id="androidRedirect" placeholder="Optional redirect URL">
+            </div>
+            <div class="form-group">
+              <label for="iosRedirect">iOS Fallback / Redirect URL</label>
+              <input type="text" id="iosRedirect" placeholder="Optional redirect URL">
+            </div>
+          </div>
+
+          <!-- OneLink Domain Input -->
+          <div class="form-group field-group" id="onelinkGroup">
+            <label for="onelinkDomain">OneLink Base Domain URL</label>
+            <input type="text" id="onelinkDomain" placeholder="https://example.onelink.me/0000">
+          </div>
+
+          <div class="button-group">
+            <button type="button" id="generateBtn" class="btn btn-primary">Generate Links</button>
+            <button type="button" id="copyBtn" class="btn btn-secondary">Copy Results</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Output Section -->
+      <section class="card output-section">
+        <h2>Generated Mainframe Output</h2>
+        <div class="output-wrapper">
+          <pre id="outputResult">Select a link type, enter parameters, and click "Generate Links".</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
