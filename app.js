@@ -1,4 +1,3 @@
-// Data mapping available Link Types per MMP
 const mmpOptions = {
   appsflyer: [
     { value: 'universal', text: 'Universal link' },
@@ -11,7 +10,6 @@ const mmpOptions = {
 const mmpSelect = document.getElementById('mmpSelect');
 const linkTypeSelect = document.getElementById('linkTypeSelect');
 
-// Dynamically populate Link Types based on MMP selection
 function updateLinkTypes() {
   const selectedMMP = mmpSelect.value;
   const options = mmpOptions[selectedMMP] || [];
@@ -26,7 +24,6 @@ function updateLinkTypes() {
 }
 
 mmpSelect.addEventListener('change', updateLinkTypes);
-// Initial population on load
 updateLinkTypes();
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -49,7 +46,29 @@ document.addEventListener('DOMContentLoaded', () => {
   linkTypeSelect.addEventListener('change', updateVisibleFields);
   updateVisibleFields();
 
-  // Core link generation function adhering to the Base sheet rules
+  function createResultBlock(label, value) {
+    const block = document.createElement('div');
+    block.className = 'result-block';
+
+    block.innerHTML = `<label>${label}</label>
+        <div class="copy-row">
+          <input type="text" readonly value="${value}" />
+          <button type="button" class="copy-btn">Copy</button>
+        </div>`;
+
+    // Attach dynamic click-to-copy handler
+    const copyBtn = block.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(value);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+      }, 2000);
+    });
+
+    return block;
+  }
+
   function buildLinks() {
     const type = linkTypeSelect.value;
     const clWindow = document.getElementById('clWindow').value.trim();
@@ -76,6 +95,23 @@ document.addEventListener('DOMContentLoaded', () => {
         output += `${iosRedirect}\n\n`
         output += `Server2server external trackers for iOS:\n `;
         output += `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`;
+
+
+        const resultsContainer = document.getElementById('resultsContainer');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (androidRedirect) {
+          resultsContainer.appendChild(
+            createResultBlock('Landing macro for Android:', androidRedirect)
+          );
+        }
+
+        if (iosRedirect) {
+          resultsContainer.appendChild(
+            createResultBlock('Landing macro for iOS:', iosRedirect)
+          );
+        }
+        
         break;
 
       case 'Option 2': // AppsFlyer Deeplink
@@ -116,45 +152,4 @@ document.addEventListener('DOMContentLoaded', () => {
     outputResult.innerText = output;
   }
 
-  // Helper to create individual copyable output blocks
-  function createResultBlock(label, value) {
-    const block = document.createElement('div');
-    block.className = 'result-block';
-
-    block.innerHTML = `
-    <label>${label}</label>
-    <div class="copy-row">
-      <input type="text" readonly value="${value}" />
-      <button type="button" class="copy-btn">Copy</button>
-    </div>
-  `;
-
-    // Attach dynamic click-to-copy handler
-    const copyBtn = block.querySelector('.copy-btn');
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(value);
-      copyBtn.textContent = 'Copied!';
-      setTimeout(() => {
-        copyBtn.textContent = 'Copy';
-      }, 2000);
-    });
-
-    return block;
-  }
-
-  // In your form submission event handler where links are built:
-  const resultsContainer = document.getElementById('resultsContainer');
-  resultsContainer.innerHTML = ''; // Clear previous results
-
-  if (androidRedirect) {
-    resultsContainer.appendChild(
-      createResultBlock('Landing macro for Android:', androidRedirect)
-    );
-  }
-
-  if (iosRedirect) {
-    resultsContainer.appendChild(
-      createResultBlock('Landing macro for iOS:', iosRedirect)
-    );
-  }
 });
