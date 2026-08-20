@@ -4,7 +4,7 @@ const mmpOptions = {
     { value: 'universal', text: 'Universal link' },
     { value: 'deeplink', text: 'Deeplink' },
     { value: 'mmp', text: 'MMP tracker' },
-    { value: 'oneLink', text: 'OneLink Custom URL' }
+    { value: 'oneLink', text: 'OneLink' }
   ]
 };
 
@@ -116,52 +116,45 @@ document.addEventListener('DOMContentLoaded', () => {
     outputResult.innerText = output;
   }
 
-  generateBtn.addEventListener('click', buildLinks);
-
-  // Copy output text to clipboard
-  copyBtn.addEventListener('click', () => {
-    const textToCopy = outputResult.innerText;
-    if (textToCopy && !textToCopy.startsWith('Select a link type')) {
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        const origText = copyBtn.innerText;
-        copyBtn.innerText = 'Copied!';
-        setTimeout(() => copyBtn.innerText = origText, 1800);
-      });
-    }
-  });
-
-  // Helper to render individual copyable blocks in the Results section
-  function renderResultBlock(label, value) {
+  // Helper to create individual copyable output blocks
+  function createResultBlock(label, value) {
     const block = document.createElement('div');
     block.className = 'result-block';
 
     block.innerHTML = `
     <label>${label}</label>
-    <div class="copy-input-group">
+    <div class="copy-row">
       <input type="text" readonly value="${value}" />
-      <button class="copy-btn">Copy</button>
+      <button type="button" class="copy-btn">Copy</button>
     </div>
   `;
 
-    block.querySelector('.copy-btn').addEventListener('click', (e) => {
+    // Attach dynamic click-to-copy handler
+    const copyBtn = block.querySelector('.copy-btn');
+    copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(value);
-      e.target.textContent = 'Copied!';
-      setTimeout(() => { e.target.textContent = 'Copy'; }, 2000);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+      }, 2000);
     });
 
     return block;
   }
 
-  // Example usage in your generate results handler:
-  function displayResults(androidRedirect, iosRedirect) {
-    const container = document.getElementById('resultsContainer');
-    container.innerHTML = ''; // Clear previous output
+  // In your form submission event handler where links are built:
+  const resultsContainer = document.getElementById('resultsContainer');
+  resultsContainer.innerHTML = ''; // Clear previous results
 
-    if (androidRedirect) {
-      container.appendChild(renderResultBlock('Landing macro for Android:', androidRedirect));
-    }
-    if (iosRedirect) {
-      container.appendChild(renderResultBlock('Landing macro for iOS:', iosRedirect));
-    }
+  if (androidRedirect) {
+    resultsContainer.appendChild(
+      createResultBlock('Landing macro for Android:', androidRedirect)
+    );
+  }
+
+  if (iosRedirect) {
+    resultsContainer.appendChild(
+      createResultBlock('Landing macro for iOS:', iosRedirect)
+    );
   }
 });

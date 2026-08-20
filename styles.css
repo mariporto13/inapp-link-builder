@@ -160,21 +160,23 @@ pre {
 
 .result-block label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
 }
 
-.copy-input-group {
+.copy-row {
   display: flex;
   gap: 0.5rem;
 }
 
-.copy-input-group input {
+.copy-row input {
   flex: 1;
   padding: 0.5rem;
+  font-family: monospace;
 }
 
 .copy-btn {
   padding: 0.5rem 1rem;
   cursor: pointer;
+  font-weight: bold;
 }
