@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const type = linkTypeSelect.value;
     const clWindow = document.getElementById('clWindow').value;
     const reWindow = document.getElementById('reWindow').value;
-    const androidId = document.getElementById('androidId').value.trim() || 'com.globo.globotv';
-    const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
+    const androidId = document.getElementById('androidId').value.trim() || 'com.example';
+    const iosId = document.getElementById('iosId').value.trim() || 'id123456789';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
     const iosC = document.getElementById('iosC').value.trim() || 'rtbhouse-retargeting';
     
