@@ -4,6 +4,11 @@ const mmpOptions = {
     { value: 'deeplink', text: 'Deeplink' },
     { value: 'mmp', text: 'MMP tracker' },
     { value: 'oneLink', text: 'OneLink' }
+  ],
+  adjust: [
+    { value: 'universal', text: 'Universal link' },
+    { value: 'deeplink', text: 'Deeplink' },
+    { value: 'mmp', text: 'MMP tracker' }
   ]
 };
 
@@ -32,6 +37,15 @@ expandableInputs.forEach(textarea => {
   textarea.addEventListener('input', () => {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
+  });
+});
+
+const textareas = document.querySelectorAll('#deeplinkGroup textarea, #redirectGroup textarea');
+
+textareas.forEach(textarea => {
+  textarea.addEventListener('input', () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
   });
 });
 

@@ -91,6 +91,25 @@ body {
   text-overflow: clip;
 }
 
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+  resize: vertical; /* Restricts scaling to vertical only */
+  min-height: 75px;
+  line-height: 1.4;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
 label {
   display: block;
   font-size: 13px;

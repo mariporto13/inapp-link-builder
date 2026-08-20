@@ -24,6 +24,7 @@
             <label for="mmpSelect">Mobile Measurement Partner (MMP):</label>
             <select id="mmpSelect">
               <option value="appsflyer">AppsFlyer</option>
+              <option value="adjust">Adjust</option>
             </select>
           </div>
 
@@ -71,30 +72,30 @@
           </div>
 
           <!-- Deep Link Inputs -->
-          <div class="form-row form-row-stacked field-group" id="deeplinkGroup">
+          <div class="form-row field-group" id="deeplinkGroup">
             <div class="form-group">
               <label for="androidDp">Android Deep Link (include macros and UTMs*)</label>
-              <input type="text" id="androidDp"
-                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android">
+              <textarea id="androidDp" rows="3"
+                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android"></textarea>
             </div>
             <div class="form-group">
               <label for="iosDp">iOS Deep Link (include macros and UTMs*)</label>
-              <input type="text" id="iosDp"
-                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios">
+              <textarea id="iosDp" rows="3"
+                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios"></textarea>
             </div>
           </div>
 
           <!-- Redirect Inputs -->
-          <div class="form-row form-row-stacked field-group" id="redirectGroup">
+          <div class="form-row field-group" id="redirectGroup">
             <div class="form-group">
               <label for="androidRedirect">Android Link (include macros and UTMs*)</label>
-              <input type="text" id="androidRedirect"
-                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android">
+              <textarea id="androidRedirect" rows="3"
+                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android"></textarea>
             </div>
             <div class="form-group">
               <label for="iosRedirect">iOS Link (include macros and UTMs*)</label>
-              <input type="text" id="iosRedirect"
-                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios">
+              <textarea id="iosRedirect" rows="3"
+                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios"></textarea>
             </div>
           </div>
 
