@@ -75,6 +75,22 @@ body {
   gap: 12px;
 }
 
+.form-row-stacked {
+  display: flex !important;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row-stacked input {
+  font-family: monospace;
+  font-size: 13px;
+  text-overflow: ellipsis;
+}
+
+.form-row-stacked input:focus {
+  text-overflow: clip;
+}
+
 label {
   display: block;
   font-size: 13px;
@@ -83,7 +99,8 @@ label {
   color: #334155;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--border-color);
@@ -92,7 +109,8 @@ input, select {
   box-sizing: border-box;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);

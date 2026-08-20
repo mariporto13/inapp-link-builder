@@ -26,6 +26,15 @@ function updateLinkTypes() {
 mmpSelect.addEventListener('change', updateLinkTypes);
 updateLinkTypes();
 
+const expandableInputs = document.querySelectorAll('#deeplinkGroup textarea, #redirectGroup textarea');
+
+expandableInputs.forEach(textarea => {
+  textarea.addEventListener('input', () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+  });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const linkTypeSelect = document.getElementById('linkTypeSelect');
   const deeplinkGroup = document.getElementById('deeplinkGroup');
