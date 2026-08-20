@@ -6,9 +6,14 @@ const mmpOptions = {
     { value: 'oneLinkAF', text: 'OneLink' }
   ],
   adjust: [
-    { value: 'universalAD', text: 'Universal link' },
-    { value: 'deeplinkAD', text: 'Deeplink' },
-    { value: 'mmpAD', text: 'MMP tracker' }
+    { value: 'universalADJ', text: 'Universal link' },
+    { value: 'deeplinkADJ', text: 'Deeplink' },
+    { value: 'mmpADJ', text: 'MMP tracker' }
+  ],
+  singular: [
+    { value: 'universalSNG', text: 'Universal link' },
+    { value: 'deeplinkSNG', text: 'Deeplink' },
+    { value: 'mmpSNG', text: 'MMP tracker' }
   ]
 };
 
@@ -50,8 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateVisibleFields() {
     const type = linkTypeSelect.value;
 
-    deeplinkGroup.style.display = ['deeplinkAF', 'mmpAF', 'deeplinkAD', 'mmpAD'].includes(type) ? 'grid' : 'none';
-    redirectGroup.style.display = ['universalAF', 'mmpAF', 'universalAD', 'mmpAD'].includes(type) ? 'grid' : 'none';
+    deeplinkGroup.style.display = [
+      'deeplinkAF', 
+      'mmpAF', 
+      'deeplinkADJ', 
+      'mmpADJ',
+      'deeplinkSNG',
+      'mmpSNG',
+    ].includes(type) ? 'grid' : 'none';
+    redirectGroup.style.display = [
+      'universalAF', 
+      'mmpAF', 
+      'universalADJ', 
+      'mmpADJ',
+      'universalSNG',
+      'mmpSNG',
+    ].includes(type) ? 'grid' : 'none';
     onelinkGroup.style.display = ['oneLinkAF'].includes(type) ? 'block' : 'none';
   }
 
