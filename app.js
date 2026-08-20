@@ -7,12 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copyBtn');
   const outputResult = document.getElementById('outputResult');
 
-  // Adjust input field visibility depending on option selected
   function updateVisibleFields() {
     const type = linkTypeSelect.value;
 
     deeplinkGroup.style.display = ['Option 2', 'Option 3', 'Option 6', 'Option 7'].includes(type) ? 'grid' : 'none';
-    redirectGroup.style.display = ['Option 3', 'Option 7'].includes(type) ? 'grid' : 'none';
+    redirectGroup.style.display = ['Option 1', 'Option 3', 'Option 5', 'Option 7'].includes(type) ? 'grid' : 'none';
     onelinkGroup.style.display = (type === 'Option 4') ? 'block' : 'none';
   }
 
@@ -37,23 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
     switch (type) {
       case 'Option 1': // AppsFlyer Universal link
         output += `Landing macro for Android:\n\nServer2server external trackers for Android:\n`;
-        output += `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect={SSP_ADVERTISER_ENCRYPTED}&clickid={CLIENT_IP_ADDRESS}&af_siteid={RTBHC}&af_ip=&af_sub5=\n\n`;
+        output += `https://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&redirect={SSP_ADVERTISER_ENCRYPTED}&clickid={CLIENT_IP_ADDRESS}&af_siteid={RTBHC}&af_ip=\n\n`;
         output += `Landing macro for iOS:\n\nServer2server external trackers for iOS:\n`;
-        output += `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&redirect={SSP_ADVERTISER_ENCRYPTED}&clickid={CLIENT_IP_ADDRESS}&af_siteid={RTBHC}&af_ip=&af_sub5=`;
+        output += `https://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&redirect={SSP_ADVERTISER_ENCRYPTED}&clickid={CLIENT_IP_ADDRESS}&af_siteid={RTBHC}&af_ip=`;
         break;
 
       case 'Option 2': // AppsFlyer Deeplink
-        output += `Android:\nhttps://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_force_deeplink=true&af_sub5={RTBHC}\n\n`;
-        output += `iOS:\nhttps://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${iosDp}&af_force_deeplink=true&af_sub5={RTBHC}`;
+        output += `Android:\nhttps://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_force_deeplink=true\n\n`;
+        output += `iOS:\nhttps://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${iosDp}&af_force_deeplink=true`;
         break;
 
       case 'Option 3': // AppsFlyer MMP tracker
-        output += `Android:\nhttps://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_r=${androidRedirect}&af_force_deeplink=true&af_sub5={RTBHC}\n\n`;
-        output += `iOS:\nhttps://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${iosDp}&af_r=${iosRedirect}&af_force_deeplink=true&af_sub5={RTBHC}`;
+        output += `Android:\nhttps://app.appsflyer.com/${androidId}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${androidDp}&af_r=${androidRedirect}&af_force_deeplink=true\n\n`;
+        output += `iOS:\nhttps://app.appsflyer.com/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={CLIENT_IP_ADDRESS}&af_dp=${iosDp}&af_r=${iosRedirect}&af_force_deeplink=true`;
         break;
 
       case 'Option 4': // AppsFlyer OneLink
-        output += `OneLink:\n${onelinkDomain}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={RTBHC}&af_sub5=`;
+        output += `OneLink:\n${onelinkDomain}?pid=rtbhouse_int&c=${androidC}&af_click_lookback={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_reengagement_window=FALSE&is_retargeting=true&advertising_id={ANDROID_ADVERTISING_ID}&idfa={IOS_IDFA}&clickid={SSP_ADVERTISER_ENCRYPTED}&af_siteid={RTBHC}`;
         break;
 
       case 'Option 5': // Adjust Universal link
