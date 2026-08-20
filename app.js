@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateVisibleFields() {
     const type = linkTypeSelect.value;
 
-    deeplinkGroup.style.display = ['deeplinkAF', 'mmpAF'].includes(type) ? 'grid' : 'none';
-    redirectGroup.style.display = ['universalAF', 'mmpAF'].includes(type) ? 'grid' : 'none';
+    deeplinkGroup.style.display = ['deeplinkAF', 'mmpAF', 'deeplinkAD', 'mmpAD'].includes(type) ? 'grid' : 'none';
+    redirectGroup.style.display = ['universalAF', 'mmpAF', 'universalAD', 'mmpAD'].includes(type) ? 'grid' : 'none';
     onelinkGroup.style.display = ['oneLinkAF'].includes(type) ? 'block' : 'none';
   }
 
