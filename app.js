@@ -83,6 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const iosRedirect = document.getElementById('iosRedirect').value.trim() || 'https://example.com';
     const onelinkDomain = document.getElementById('onelinkDomain').value.trim() || 'https://example.onelink.me/0000';
 
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = ''; // Clear previous results
+
+    if (androidRedirect) {
+      resultsContainer.appendChild(
+        createResultBlock('Landing macro for Android:', androidRedirect)
+      );
+    }
+
+    if (iosRedirect) {
+      resultsContainer.appendChild(
+        createResultBlock('Landing macro for iOS:', iosRedirect)
+      );
+    }
+
     let output = '';
 
     switch (type) {
@@ -95,23 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
         output += `${iosRedirect}\n\n`
         output += `Server2server external trackers for iOS:\n `;
         output += `https://app.appsflyer.com/v2.0/s2s/${iosId}?pid=rtbhouse_int&c=${iosC}&af_click_lookback=${clWindow}&af_reengagement_window=${reWindow}&is_retargeting=true&idfa={IOS_IDFA}&redirect=false&clickid={IMPRESSION_HASH}-{TIMESTAMP}-{CAMPAIGN_HASH}&af_siteid={SSP_ADVERTISER_ENCRYPTED}&af_ip={CLIENT_IP_ADDRESS}&rtbhc={RTBHC}`;
-
-
-        const resultsContainer = document.getElementById('resultsContainer');
-        resultsContainer.innerHTML = ''; // Clear previous results
-
-        if (androidRedirect) {
-          resultsContainer.appendChild(
-            createResultBlock('Landing macro for Android:', androidRedirect)
-          );
-        }
-
-        if (iosRedirect) {
-          resultsContainer.appendChild(
-            createResultBlock('Landing macro for iOS:', iosRedirect)
-          );
-        }
-        
         break;
 
       case 'Option 2': // AppsFlyer Deeplink
