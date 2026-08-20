@@ -30,7 +30,7 @@ mmpSelect.addEventListener('change', updateLinkTypes);
 updateLinkTypes();
 
 document.addEventListener('DOMContentLoaded', () => {
-  const linkTypeSelect = document.getElementById('linkType');
+  const linkTypeSelect = document.getElementById('linkTypeSelect');
   const deeplinkGroup = document.getElementById('deeplinkGroup');
   const redirectGroup = document.getElementById('redirectGroup');
   const onelinkGroup = document.getElementById('onelinkGroup');
