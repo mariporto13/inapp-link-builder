@@ -71,9 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function buildLinks() {
     const type = linkTypeSelect.value;
-    const clWindow = document.getElementById('clWindow').value.trim();
-    const reWindow = document.getElementById('reWindow').value.trim();
-    const androidId = document.getElementById('androidId').value.trim() || 'com.mcdo.mcdonalds';
+    const clWindow = document.getElementById('clWindow').value.trim() || '7d';
+    const reWindow = document.getElementById('reWindow').value.trim() || '7d';
+    const androidId = document.getElementById('androidId').value.trim() || 'com.globo.globotv';
     const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
     const iosC = document.getElementById('iosC').value.trim() || 'rtbhouse-retargeting';

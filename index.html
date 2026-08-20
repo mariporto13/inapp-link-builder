@@ -37,22 +37,22 @@
           <div class="form-row">
             <div class="form-group">
               <label for="clWindow">Click lookback window (install -> app open)</label>
-              <input type="text" id="clWindow" placeholder="e.g. 7d">
+              <input type="text" id="clWindow" placeholder="7d">
             </div>
             <div class="form-group">
               <label for="reWindow">Reengagement window (app open -> conversion)</label>
-              <input type="text" id="reWindow" placeholder="e.g. 7d">
+              <input type="text" id="reWindow" placeholder="7d">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="androidId">Android App ID</label>
-              <input type="text" id="androidId" placeholder="e.g. com.globo.globotv">
+              <input type="text" id="androidId" placeholder="com.globo.globotv">
             </div>
             <div class="form-group">
               <label for="iosId">iOS App ID</label>
-              <input type="text" id="iosId" placeholder="e.g. id536321738">
+              <input type="text" id="iosId" placeholder="id536321738">
             </div>
           </div>
 
@@ -70,36 +70,42 @@
           <!-- Dynamic Deep Link Inputs -->
           <div class="form-row field-group" id="deeplinkGroup">
             <div class="form-group">
-              <label for="androidDp">Android Deep Link</label>
-              <input type="text" id="androidDp" placeholder="e.g. greatapp://path">
+              <label for="androidDp">Android Deep Link (include macros and UTMs*)</label>
+              <input type="text" id="androidDp"
+                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android">
             </div>
             <div class="form-group">
-              <label for="iosDp">iOS Deep Link</label>
-              <input type="text" id="iosDp" placeholder="e.g. greatapp://path">
+              <label for="iosDp">iOS Deep Link (include macros and UTMs*)</label>
+              <input type="text" id="iosDp"
+                placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios">
             </div>
           </div>
 
           <!-- Dynamic Redirect Inputs -->
           <div class="form-row field-group" id="redirectGroup">
             <div class="form-group">
-              <label for="androidRedirect">Android Redirect URL</label>
-              <input type="text" id="androidRedirect" placeholder="Optional redirect URL">
+              <label for="androidRedirect">Android Link (include macros and UTMs*)</label>
+              <input type="text" id="androidRedirect"
+                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android">
             </div>
             <div class="form-group">
-              <label for="iosRedirect">iOS Redirect URL</label>
-              <input type="text" id="iosRedirect" placeholder="Optional redirect URL">
+              <label for="iosRedirect">iOS Link (include macros and UTMs*)</label>
+              <input type="text" id="iosRedirect"
+                placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios">
             </div>
           </div>
 
           <!-- OneLink Domain Input -->
           <div class="form-group field-group" id="onelinkGroup">
-            <label for="onelinkDomain">OneLink Base Domain URL</label>
+            <label for="onelinkDomain">OneLink URL</label>
             <input type="text" id="onelinkDomain" placeholder="https://example.onelink.me/0000">
           </div>
 
+
+          <div><label>*UTMs are required if the MMP is not used for Client stats</label></div>
+
           <div class="button-group">
             <button type="button" id="generateBtn" class="btn btn-primary">Generate Links</button>
-            <button type="button" id="copyBtn" class="btn btn-secondary">Copy Results</button>
           </div>
         </form>
       </section>
