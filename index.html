@@ -5,14 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>InApp Link Builder</title>
-  <link rel="icon" type="image/x-icon" href="assets/Frame-1.png">  
+  <link rel="icon" type="image/x-icon" href="assets/Frame-1.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="app-container">
     <header class="app-header">
-      <h1>InApp Link Builder v0.1.3</h1>
+      <h1>InApp Link Builder v0.2</h1>
       <p>Generate tracking URLs based on client specifications.</p>
     </header>
 
@@ -25,65 +25,115 @@
             <label for="mmpSelect">Mobile Measurement Partner (MMP):</label>
             <select id="mmpSelect">
               <option value="appsflyer">AppsFlyer</option>
+              <option value="adjust">Adjust (WIP)</option>
+              <option value="singular">Singular (WIP)</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="linkTypeSelect">Link Type:</label>
             <select id="linkTypeSelect">
-              <!-- Populated dynamically via JS based on selected MMP -->
+              <!-- Populated dynamically via JS -->
             </select>
           </div>
 
-          <!-- Attribution Window Inputs -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="clWindow">Click lookback window (install -> app open)</label>
-              <select id="clWindow">
-                <!-- Generated via JS: 1h to 23h, 1d to 30d -->
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="reWindow">Reengagement window (app open -> conversion)</label>
-              <select id="reWindow">
-                <!-- Generated via JS: 1h to 36h, 1d to 90d -->
-              </select>
+          <!-- Platform Selection -->
+          <div class="form-group">
+            <label>Target Platform:</label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="platformSelect" value="both" checked> Android & iOS
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="platformSelect" value="android"> Android only
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="platformSelect" value="ios"> iOS only
+              </label>
             </div>
           </div>
 
-          <!-- App ID Inputs -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="androidId">Android App ID</label>
-              <input type="text" id="androidId" placeholder="com.example">
+          <!-- Attribution Window Inputs (AppsFlyer) -->
+          <div class="field-group" id="windowGroup">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="clWindow">Click lookback window (install -> app open)</label>
+                <select id="clWindow">
+                  <!-- Generated via JS -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="reWindow">Reengagement window (app open -> conversion)</label>
+                <select id="reWindow">
+                  <!-- Generated via JS -->
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="iosId">iOS App ID</label>
-              <input type="text" id="iosId" placeholder="id123456789">
+          </div>
+
+          <!-- App ID Inputs (AppsFlyer) -->
+          <div class="field-group" id="appIdGroup">
+            <div class="form-row">
+              <div class="form-group" id="androidIdField">
+                <label for="androidId">Android App ID</label>
+                <input type="text" id="androidId" placeholder="com.example">
+              </div>
+              <div class="form-group" id="iosIdField">
+                <label for="iosId">iOS App ID</label>
+                <input type="text" id="iosId" placeholder="id123456789">
+              </div>
+            </div>
+          </div>
+
+          <!-- Tracker ID Inputs (Adjust) -->
+          <div class="field-group" id="trackerGroup">
+            <div class="form-row">
+              <div class="form-group" id="androidTrackerField">
+                <label for="androidTracker">Android Tracker ID</label>
+                <input type="text" id="androidTracker" placeholder="abc1234">
+              </div>
+              <div class="form-group" id="iosTrackerField">
+                <label for="iosTracker">iOS Tracker ID</label>
+                <input type="text" id="iosTracker" placeholder="abc1234">
+              </div>
+            </div>
+          </div>
+
+          <!-- Base Link Inputs (Singular) -->
+          <div class="field-group" id="baseLinkGroup">
+            <div class="form-row">
+              <div class="form-group" id="androidBaseLinkField">
+                <label for="androidBaseLink">Android Base Link</label>
+                <input type="text" id="androidBaseLink" placeholder="https://[DOMAIN].sng.link/[PARAM1]/[PARAM2]">
+              </div>
+              <div class="form-group" id="iosBaseLinkField">
+                <label for="iosBaseLink">iOS Base Link</label>
+                <input type="text" id="iosBaseLink" placeholder="https://[DOMAIN].sng.link/[PARAM1]/[PARAM2]">
+              </div>
             </div>
           </div>
 
           <!-- Campaign Parameter Inputs -->
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group" id="androidCField">
               <label for="androidC">Android Campaign</label>
               <input type="text" id="androidC" placeholder="Default: rtbhouse-retargeting">
             </div>
-            <div class="form-group">
+            <div class="form-group" id="iosCField">
               <label for="iosC">iOS Campaign</label>
               <input type="text" id="iosC" placeholder="Default: rtbhouse-retargeting">
             </div>
           </div>
 
-          <!-- Deep Link Inputs -->
+          <!-- Deeplink Inputs -->
           <div class="field-group" id="deeplinkGroup">
             <div class="form-row">
-              <div class="form-group">
+              <div class="form-group" id="androidDpField">
                 <label for="androidDp">Android Deeplink (include macros and UTMs)</label>
                 <textarea id="androidDp" rows="3"
                   placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}"></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="iosDpField">
                 <label for="iosDp">iOS Deeplink (include macros and UTMs)</label>
                 <textarea id="iosDp" rows="3" placeholder="greatapp://path/to/product/id/{OFFER_IDENTIFIER}"></textarea>
               </div>
@@ -94,12 +144,12 @@
           <!-- Redirect Inputs -->
           <div class="field-group" id="redirectGroup">
             <div class="form-row">
-              <div class="form-group">
+              <div class="form-group" id="androidRedirectField">
                 <label for="androidRedirect">Android Link (include macros and UTMs)</label>
                 <textarea id="androidRedirect" rows="3"
                   placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-android"></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="iosRedirectField">
                 <label for="iosRedirect">iOS Link (include macros and UTMs)</label>
                 <textarea id="iosRedirect" rows="3"
                   placeholder="{OFFER_URL}?utm_source=rtbhouse&utm_medium=retargeting&utm_campaign=rtbhouse-campaign-ios"></textarea>
@@ -108,14 +158,14 @@
             <label class="note-label">Note: UTMs are required if the MMP is not used for Client stats.</label>
           </div>
 
-          <!-- OneLink Input -->
+          <!-- OneLink Input (AppsFlyer) -->
           <div class="field-group" id="onelinkGroup">
             <div class="form-row">
-              <div class="form-group">
+              <div class="form-group" id="androidOnelinkField">
                 <label for="androidOnelink">Android OneLink (include macros and UTMs)</label>
                 <textarea id="androidOnelink" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group" id="iosOnelinkField">
                 <label for="iosOnelink">iOS OneLink (include macros and UTMs)</label>
                 <textarea id="iosOnelink" rows="3" placeholder="https://greatapp.onelink.me/328f"></textarea>
               </div>
@@ -135,23 +185,23 @@
           <div class="checkbox-group">
             <label class="checkbox-label">
               <input type="checkbox" id="impressionCheck">
-              Generate Impression tracking URLs (if this is not selected, only Click URLs will be generated).
+              Generate Impression tracking URLs (if this option is not selected, only Click URLs will be generated).
             </label>
           </div>
 
-          <!-- Impression Attribution Window Inputs -->
+          <!-- Impression Attribution Window Inputs (AppsFlyer) -->
           <div class="field-group" id="impressionGroup">
             <div class="form-row">
               <div class="form-group">
                 <label for="vtWindow">Viewthrough lookback window (install -> app open)</label>
                 <select id="vtWindow">
-                  <!-- Generated via JS: 1h to 24h -->
+                  <!-- Generated via JS -->
                 </select>
               </div>
               <div class="form-group">
                 <label for="impReWindow">Imp reengagement window (app open -> conversion)</label>
                 <select id="impReWindow">
-                  <!-- Generated via JS: 1h to 36h, 1d to 90d -->
+                  <!-- Generated via JS -->
                 </select>
               </div>
             </div>
