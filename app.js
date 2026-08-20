@@ -79,18 +79,22 @@ document.addEventListener('DOMContentLoaded', () => {
   linkTypeSelect.addEventListener('change', updateVisibleFields);
   updateVisibleFields();
 
-  // Helper to create dynamic result blocks with individual copy buttons
   function createResultBlock(label, value) {
     const block = document.createElement('div');
     block.className = 'result-block';
 
-    block.innerHTML = `
-      <label>${label}</label>
-      <div class="copy-row">
-        <input type="text" readonly value="${value}" />
-        <button type="button" class="copy-btn">Copy</button>
-      </div>
-    `;
+    block.innerHTML = `<label>${label}</label>
+    <div class="copy-row">
+      <textarea readonly rows="2">${value}</textarea>
+      <button type="button" class="copy-btn">Copy</button>
+    </div>`;
+
+    // Auto-fit height to text content
+    const textarea = block.querySelector('textarea');
+    setTimeout(() => {
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }, 0);
 
     const copyBtn = block.querySelector('.copy-btn');
     copyBtn.addEventListener('click', () => {
@@ -121,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resultsContainer = document.getElementById('resultsContainer');
     if (!resultsContainer) return;
-    resultsContainer.innerHTML = ''; // Clear previous results
+    resultsContainer.innerHTML = '';
 
     switch (type) {
       case 'universalAF':

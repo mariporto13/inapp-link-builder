@@ -197,16 +197,32 @@ pre {
 .copy-row {
   display: flex;
   gap: 0.5rem;
+  align-items: flex-start;
 }
 
-.copy-row input {
+.copy-row textarea {
   flex: 1;
   padding: 0.5rem;
   font-family: monospace;
+  font-size: 13px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 40px;
+  line-height: 1.4;
+  background-color: #f8fafc;
+}
+
+.copy-row textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .copy-btn {
   padding: 0.5rem 1rem;
   cursor: pointer;
   font-weight: bold;
+  height: 40px;
 }
