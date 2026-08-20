@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showAndroid = platform === 'both' || platform === 'android';
     const showIos = platform === 'both' || platform === 'ios';
 
-    // Helper to toggle platform-specific field pairs
     function togglePair(androidFieldId, iosFieldId) {
       const androidEl = document.getElementById(androidFieldId);
       const iosEl = document.getElementById(iosFieldId);
