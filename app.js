@@ -492,14 +492,14 @@ document.addEventListener('DOMContentLoaded', () => {
           resultsContainer.appendChild(createResultBlock('Landing macro for Android:', androidRedirectRaw));
           resultsContainer.appendChild(createResultBlock(
             'Server2server external trackers URL for Android ("CLICK", "AAID"):',
-            `${androidBaseLink}?aifa={ANDROID_ADVERTISING_ID}&pcn=rtbhouse-retargeting&redirect=false&ip={CLIENT_IP_ADDRESS}`
+            `${androidBaseLink}?aifa={ANDROID_ADVERTISING_ID}&pcn=${androidC}&redirect=false&ip={CLIENT_IP_ADDRESS}`
           ));
         }
         if (doIos) {
           resultsContainer.appendChild(createResultBlock('Landing macro for iOS:', iosRedirectRaw));
           resultsContainer.appendChild(createResultBlock(
             'Server2server external trackers URL for iOS ("CLICK", "IDFA"):',
-            `${iosBaseLink}?idfa={IOS_IDFA}&pcn=rtbhouse-retargeting&redirect=false&ip={CLIENT_IP_ADDRESS}`
+            `${iosBaseLink}?idfa={IOS_IDFA}&pcn=${androidC}&redirect=false&ip={CLIENT_IP_ADDRESS}`
           ));
         }
         break;
