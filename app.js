@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateVisibleFields() {
     const type = linkTypeSelect.value;
 
-    deeplinkGroup.style.display = ['Option 2', 'Option 3', 'Option 6', 'Option 7'].includes(type) ? 'grid' : 'none';
-    redirectGroup.style.display = ['Option 1', 'Option 3', 'Option 5', 'Option 7'].includes(type) ? 'grid' : 'none';
+    deeplinkGroup.style.display = ['Option 2', 'Option 3'].includes(type) ? 'grid' : 'none';
+    redirectGroup.style.display = ['Option 1', 'Option 3'].includes(type) ? 'grid' : 'none';
     onelinkGroup.style.display = (type === 'Option 4') ? 'block' : 'none';
   }
 
@@ -21,14 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Core link generation function adhering to the Base sheet rules
   function buildLinks() {
     const type = linkTypeSelect.value;
+    const reWindow = document.getElementById('reWindow').value.trim();
+    const clWindow = document.getElementById('clWindow').value.trim();
     const androidId = document.getElementById('androidId').value.trim() || 'com.mcdo.mcdonalds';
     const iosId = document.getElementById('iosId').value.trim() || 'id536321738';
     const androidC = document.getElementById('androidC').value.trim() || 'rtbhouse-retargeting';
     const iosC = document.getElementById('iosC').value.trim() || 'rtbhouse-retargeting';
-    const androidDp = document.getElementById('androidDp').value.trim() || '{RTBHC}';
-    const iosDp = document.getElementById('iosDp').value.trim() || '{RTBHC}';
-    const androidRedirect = document.getElementById('androidRedirect').value.trim();
-    const iosRedirect = document.getElementById('iosRedirect').value.trim();
+    const androidDp = document.getElementById('androidDp').value.trim() || 'greatapp://path';
+    const iosDp = document.getElementById('iosDp').value.trim() || 'greatapp://path';
+    const androidRedirect = document.getElementById('androidRedirect').value.trim() || 'https://example.com';
+    const iosRedirect = document.getElementById('iosRedirect').value.trim() || 'https://example.com';
     const onelinkDomain = document.getElementById('onelinkDomain').value.trim() || 'https://example.onelink.me/0000';
 
     let output = '';

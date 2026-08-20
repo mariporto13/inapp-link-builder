@@ -9,8 +9,8 @@
 <body>
   <div class="app-container">
     <header class="app-header">
-      <h1>InApp Link Builder v0</h1>
-      <p>Generate AppsFlyer & Adjust deep links and tracking URLs based on client specifications.</p>
+      <h1>InApp Link Builder v0.1</h1>
+      <p>Generate AppsFlyer tracking URLs based on client specifications.</p>
     </header>
 
     <main class="grid-layout">
@@ -25,30 +25,38 @@
               <option value="Option 2">AppsFlyer Deeplink</option>
               <option value="Option 3">AppsFlyer MMP Tracker</option>
               <option value="Option 4">AppsFlyer OneLink</option>
-              <option value="Option 5">Adjust Universal Link</option>
-              <option value="Option 6">Adjust Deeplink</option>
-              <option value="Option 7">Adjust MMP Tracker</option>
             </select>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="androidId">Android App ID / Tracker ID</label>
+              <label for="reWindow">What is the reengagement window? (app open -> conversion)</label>
+              <input type="text" id="reWindow">
+            </div>
+            <div class="form-group">
+              <label for="clWindow">What is the click lookback window? (install -> app open)</label>
+              <input type="text" id="clWindow">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="androidId">Android App ID</label>
               <input type="text" id="androidId" placeholder="e.g. com.mcdo.mcdonalds">
             </div>
             <div class="form-group">
-              <label for="iosId">iOS App ID / Tracker ID</label>
+              <label for="iosId">iOS App ID</label>
               <input type="text" id="iosId" placeholder="e.g. id536321738">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="androidC">Android Campaign / C Parameter</label>
+              <label for="androidC">Android Campaign</label>
               <input type="text" id="androidC" placeholder="Default: rtbhouse-retargeting">
             </div>
             <div class="form-group">
-              <label for="iosC">iOS Campaign / C Parameter</label>
+              <label for="iosC">iOS Campaign</label>
               <input type="text" id="iosC" placeholder="Default: rtbhouse-retargeting">
             </div>
           </div>
@@ -56,23 +64,23 @@
           <!-- Dynamic Deep Link Inputs -->
           <div class="form-row field-group" id="deeplinkGroup">
             <div class="form-group">
-              <label for="androidDp">Android Deep Link / Path</label>
-              <input type="text" id="androidDp" placeholder="e.g. {RTBHC} or greatapp://path">
+              <label for="androidDp">Android Deep Link</label>
+              <input type="text" id="androidDp" placeholder="e.g. greatapp://path">
             </div>
             <div class="form-group">
-              <label for="iosDp">iOS Deep Link / Path</label>
-              <input type="text" id="iosDp" placeholder="e.g. {RTBHC} or greatapp://path">
+              <label for="iosDp">iOS Deep Link</label>
+              <input type="text" id="iosDp" placeholder="e.g. greatapp://path">
             </div>
           </div>
 
           <!-- Dynamic Redirect Inputs -->
           <div class="form-row field-group" id="redirectGroup">
             <div class="form-group">
-              <label for="androidRedirect">Android Fallback / Redirect URL</label>
+              <label for="androidRedirect">Android Redirect URL</label>
               <input type="text" id="androidRedirect" placeholder="Optional redirect URL">
             </div>
             <div class="form-group">
-              <label for="iosRedirect">iOS Fallback / Redirect URL</label>
+              <label for="iosRedirect">iOS Redirect URL</label>
               <input type="text" id="iosRedirect" placeholder="Optional redirect URL">
             </div>
           </div>
